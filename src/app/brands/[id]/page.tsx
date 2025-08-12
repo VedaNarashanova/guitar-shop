@@ -1,10 +1,9 @@
 'use client';
 
-import { useRouter, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
-import { useState } from 'react';
-import Link from 'next/link'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const FIND_BRAND_MODELS = gql`
   query FindBrandModels($id: ID!, $sortBy: sortBy!) {
@@ -12,6 +11,8 @@ const FIND_BRAND_MODELS = gql`
       id
       name
       type
+      image
+      price
     }
   }
 `;
@@ -20,23 +21,17 @@ export default function BrandModelsPage() {
     const params = useParams();
     const brandId = params.id;
 
-    //for pagination
-    const[limit]=useState(5);//guitar models per page
-    const[page, setPage]= useState(0)//starting point for models to fetch
-
-    //hardcoding the types of guitar
-    const guitarTypes=["All","Electric","Acoustic","Bass"];
-    const[selectedType, setSelectedType] =useState("All");
-
-    //for the search bar
+    const limit = 6; // 3 columns x 2 rows
+    const [page, setPage] = useState(0);
+    const guitarTypes = ['All', 'Electric', 'Acoustic', 'Bass'];
+    const [selectedType, setSelectedType] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const sortBy = { field: "name", order: "ASC" };
-
+    const sortBy = { field: 'name', order: 'ASC' };
 
     const { loading, error, data } = useQuery(FIND_BRAND_MODELS, {
         variables: { id: brandId, sortBy },
-        fetchPolicy:  'cache-and-network'
+        fetchPolicy: 'cache-and-network',
     });
 
     useEffect(() => {
@@ -46,64 +41,123 @@ export default function BrandModelsPage() {
     if (loading) return <p>Loading models...</p>;
     if (error) return <p>Error loading models: {error.message}</p>;
 
-
-
-    //here data is guaranteede
-    const allModels = data.findBrandModels;
-
-    // Filter models locally based on search term (case insensitive)
-    // const filteredModels = data.findBrandModels.filter((model: {name:string}) =>
-    // model.name.toLowerCase().includes(searchTerm.toLowerCase()));
     const filteredModels = data.findBrandModels.filter((model) => {
         const matchesSearch = model.name.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesType = selectedType ==="All" || model.type.toLowerCase() === selectedType.toLowerCase();
+        const matchesType = selectedType === 'All' || model.type.toLowerCase() === selectedType.toLowerCase();
         return matchesSearch && matchesType;
-    })
+    });
 
-
-    // slice for current page
     const paginatedModels = filteredModels.slice(page * limit, (page + 1) * limit);
+    const totalPages = Math.ceil(filteredModels.length / limit);
 
     return (
-        <div>
-            <h1>Models for brand {brandId}</h1>
-            {/*The Search Bar*/}
-            <input
-                type="text"
-                placeholder="Search models by name"
-                value={searchTerm}
-                onChange={ (e) => setSearchTerm(e.target.value)}
-            />
-            {/*The Dropdown*/}
-            <select value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}>
-                {guitarTypes.map((type) => (
-                    <option key={type} value={type}>
-                        {type}
-                    </option>
-                ))}
-            </select>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '20px' }}>
+            {/* Header */}
+            <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Check out this section</h1>
 
-            <ul>
-                {/*{data.findBrandModels.map((model: { id: string; name: string; type: string }) => (*/}
-                {/*{filteredModels.map((model: {id:string; name:string; type:string}) =>*/}
-                {paginatedModels.map((model) => (
-                    <li key={model.id}>
-                        {model.name} - {model.type}
-                    </li>
-                ))}
-            </ul>
-            <p>Page {page + 1}</p>
-
-            <button onClick={() => setPage((prev) => Math.max(prev - 1, 0))} disabled={page === 0}>
-                Previous
-            </button>
-            <button
-                onClick={() => setPage((prev) => (paginatedModels.length === limit ? prev + 1 : prev))}
-                disabled={paginatedModels.length < limit}
+            {/* Search & Filter */}
+            <div
+                style={{
+                    marginBottom: '30px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    flexWrap: 'wrap',
+                }}
             >
-                Next
-            </button>
+                <input
+                    type="text"
+                    placeholder="Search models by name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={{
+                        padding: '10px',
+                        width: '220px',
+                        border: '1px solid #ccc',
+                        borderRadius: '5px',
+                    }}
+                />
+                <select
+                    value={selectedType}
+                    onChange={(e) => setSelectedType(e.target.value)}
+                    style={{
+                        padding: '10px',
+                        border: '1px solid #ccc',
+                        borderRadius: '5px',
+                    }}
+                >
+                    {guitarTypes.map((type) => (
+                        <option key={type} value={type}>
+                            {type}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            {/* Guitar Grid */}
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gridTemplateRows: 'repeat(2, auto)',
+                    gap: '20px',
+                }}
+            >
+                {paginatedModels.map((model) => (
+                    <div
+                        key={model.id}
+                        style={{
+                            border: '1px solid #ddd',
+                            borderRadius: '8px',
+                            padding: '10px',
+                            textAlign: 'center',
+                            background: '#fff',
+                        }}
+                    >
+                        <Link href={`/models/${brandId}/${model.id}`}>
+                            <img
+                                src={model.image}
+                                alt={model.name}
+                                style={{
+                                    width: '100%',
+                                    height: '250px',
+                                    objectFit: 'contain',
+                                    marginBottom: '10px',
+                                }}
+                            />
+                            <h3 style={{ margin: '10px 0' }}>{model.name}</h3>
+                            <p
+                                style={{
+                                    fontWeight: 'bold',
+                                    color: '#444',
+                                }}
+                            >
+                                ${model.price}
+                            </p>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+
+            {/* Pagination */}
+            <div
+                style={{
+                    marginTop: '30px',
+                    display: 'flex',
+                    gap: '10px',
+                    justifyContent: 'center',
+                }}
+            >
+                <button onClick={() => setPage((prev) => Math.max(prev - 1, 0))} disabled={page === 0}>
+                    Previous
+                </button>
+                <span>
+          Page {page + 1} of {totalPages}
+        </span>
+                <button onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))} disabled={page >= totalPages - 1}>
+                    Next
+                </button>
+            </div>
         </div>
     );
 }
