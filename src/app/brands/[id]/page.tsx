@@ -3,7 +3,8 @@
 import { useRouter, useParams } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
 import { useState } from 'react';
-import {type} from "os";
+import Link from 'next/link'
+import { useEffect } from 'react';
 
 const FIND_BRAND_MODELS = gql`
   query FindBrandModels($id: ID!, $sortBy: sortBy!) {
@@ -19,6 +20,10 @@ export default function BrandModelsPage() {
     const params = useParams();
     const brandId = params.id;
 
+    //for pagination
+    const[limit]=useState(5);//guitar models per page
+    const[page, setPage]= useState(0)//starting point for models to fetch
+
     //hardcoding the types of guitar
     const guitarTypes=["All","Electric","Acoustic","Bass"];
     const[selectedType, setSelectedType] =useState("All");
@@ -28,12 +33,23 @@ export default function BrandModelsPage() {
 
     const sortBy = { field: "name", order: "ASC" };
 
+
     const { loading, error, data } = useQuery(FIND_BRAND_MODELS, {
         variables: { id: brandId, sortBy },
+        fetchPolicy:  'cache-and-network'
     });
+
+    useEffect(() => {
+        setPage(0);
+    }, [searchTerm, selectedType]);
 
     if (loading) return <p>Loading models...</p>;
     if (error) return <p>Error loading models: {error.message}</p>;
+
+
+
+    //here data is guaranteede
+    const allModels = data.findBrandModels;
 
     // Filter models locally based on search term (case insensitive)
     // const filteredModels = data.findBrandModels.filter((model: {name:string}) =>
@@ -43,6 +59,10 @@ export default function BrandModelsPage() {
         const matchesType = selectedType ==="All" || model.type.toLowerCase() === selectedType.toLowerCase();
         return matchesSearch && matchesType;
     })
+
+
+    // slice for current page
+    const paginatedModels = filteredModels.slice(page * limit, (page + 1) * limit);
 
     return (
         <div>
@@ -67,12 +87,23 @@ export default function BrandModelsPage() {
             <ul>
                 {/*{data.findBrandModels.map((model: { id: string; name: string; type: string }) => (*/}
                 {/*{filteredModels.map((model: {id:string; name:string; type:string}) =>*/}
-                {filteredModels.map((model) => (
+                {paginatedModels.map((model) => (
                     <li key={model.id}>
                         {model.name} - {model.type}
                     </li>
                 ))}
             </ul>
+            <p>Page {page + 1}</p>
+
+            <button onClick={() => setPage((prev) => Math.max(prev - 1, 0))} disabled={page === 0}>
+                Previous
+            </button>
+            <button
+                onClick={() => setPage((prev) => (paginatedModels.length === limit ? prev + 1 : prev))}
+                disabled={paginatedModels.length < limit}
+            >
+                Next
+            </button>
         </div>
     );
 }
