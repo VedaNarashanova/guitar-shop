@@ -1,0 +1,40 @@
+
+.home-container {
+    max-width: 900px;
+    margin: 0 auto; /* remove top margin, we’ll add padding-top */
+    padding: 80px 20px 20px 20px; /* top padding to push content down */
+    text-align: center;
+    position: relative;
+    min-height: 100vh;
+}
+.model-details-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.left-column, .right-column {
+    flex: 1;
+    background: #fff8f0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.left-column ul, .right-column ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.musician-pagination button {
+    margin-right: 5px;
+    background-color: gray;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.musician-pagination button.active-dot {
+    background-color: blue;
+}

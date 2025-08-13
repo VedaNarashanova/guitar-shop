@@ -42,14 +42,14 @@ body, html {
     color: orange;
 }
 
-/* Search and filter controls */
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
+/* Search and filter controls OVAAAAAAAAAAAAAAAAAAAAAAAAA*/
+/*.controls {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 15px;*/
+/*    margin-bottom: 30px;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 .search-input, .select-input {
     padding: 8px 12px;
     font-size: 14px;
@@ -134,4 +134,19 @@ body, html {
     .card-image {
         height: 150px;
     }
+}
+
+.selection-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* center horizontally */
+    margin-top: 50px; /* push it down a bit from the header */
+    margin-bottom: 40px;
+}
+.selection-section .controls {
+    margin-top: 15px; /* space between heading and inputs */
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center; /* center inputs under heading */
 }

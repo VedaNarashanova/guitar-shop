@@ -33,16 +33,16 @@
 }
 
 /* Right side: Big orange ball partially visible */
-.big-circle {
-    position: absolute;
-    top: -100px; /* move it up so part is hidden */
-    right: -150px; /* move it right so part is off screen */
-    width: 400px;  /* way bigger */
-    height: 400px;
-    background-color: orange;
-    border-radius: 50%;
-    z-index: 0; /* behind content */
-}
+/*.big-circle {*/
+/*    position: absolute;*/
+/*    top: -100px; !* move it up so part is hidden *!*/
+/*    right: -150px; !* move it right so part is off screen *!*/
+/*    width: 400px;  !* way bigger *!*/
+/*    height: 400px;*/
+/*    background-color: orange;*/
+/*    border-radius: 50%;*/
+/*    z-index: 0; !* behind content *!*/
+/*}*/
 
 /* Hero section with big text aligned roughly with the big circle */
 .hero-section {
