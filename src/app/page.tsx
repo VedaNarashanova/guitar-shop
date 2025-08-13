@@ -1,7 +1,26 @@
 'use client';
 
 import { gql, useQuery } from '@apollo/client';
-import Link from 'next/link'
+import Link from 'next/link';
+import './styling/HomePage.css';
+import './styling/header.css';
+import Footer from './components/footer';
+import Header from './components/header';
+
+
+const brandLogos = {
+    'Fender': 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Fender_logo.png',
+    'Ibanez': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Ibanez_logo.svg',
+    'Gibson': 'https://upload.wikimedia.org/wikipedia/commons/5/51/Gibson_Guitar_logo.svg',
+    'PRS': 'https://upload.wikimedia.org/wikipedia/commons/b/ba/PRS_Guitars_logo.svg',
+    'Martin': 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Martin_co_optimized_cleaned.svg',
+    'Yamaha': 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Yamaha_logo.svg',
+    'Gretsch': 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Gretsch_company_logo.png',
+    'Epiphone': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Epiphone_guitars_logo.svg',
+    'Jackson':'https://upload.wikimedia.org/wikipedia/commons/a/a6/Jackson_guitars_logo.svg',
+    'Music Man': 'https://upload.wikimedia.org/wikipedia/en/e/ee/Ernie_ball_music_man_logo.png',
+
+};
 
 const GET_BRANDS = gql`
   query GetBrands {
@@ -13,127 +32,116 @@ const GET_BRANDS = gql`
 `;
 
 export default function HomePage() {
+
   const { loading, error, data } = useQuery(GET_BRANDS);
+
 
   if (loading) return <p>Loading brands...</p>;
   if (error) return <p>Error loading brands: {error.message}</p>;
 
-  return (
-      <div>
-        <h1>Guitar Brands</h1>
-        <ul>
-          {data.findAllBrands.map((brand: { id: string; name: string }) => (
-              <li key={brand.id}>
-               <Link href={`/brands/${brand.id}`}>
-                   {brand.name}
-               </Link>
-              </li>
-          ))}
-        </ul>
-      </div>
-  );
-}
+    return (
+        <div className="home-container">
+            {/* Header with dynamic title */}
+            <Header title="Browse top quality Guitars online" />
 
-// import Image from "next/image";
-//
-// export default function Home() {
-//   return (
-//     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-//       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-//         <Image
-//           className="dark:invert"
-//           src="/next.svg"
-//           alt="Next.js logo"
-//           width={180}
-//           height={38}
-//           priority
-//         />
-//         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-//           <li className="mb-2 tracking-[-.01em]">
-//             Get started by editing{" "}
-//             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-//               src/app/page.tsx
-//             </code>
-//             .
-//           </li>
-//           <li className="tracking-[-.01em]">
-//             Save and see your changes instantly.
-//           </li>
-//         </ol>
-//
-//         <div className="flex gap-4 items-center flex-col sm:flex-row">
-//           <a
-//             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-//             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             <Image
-//               className="dark:invert"
-//               src="/vercel.svg"
-//               alt="Vercel logomark"
-//               width={20}
-//               height={20}
-//             />
-//             Deploy now
-//           </a>
-//           <a
-//             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-//             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Read our docs
-//           </a>
-//         </div>
-//       </main>
-//       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/file.svg"
-//             alt="File icon"
-//             width={16}
-//             height={16}
-//           />
-//           Learn
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/window.svg"
-//             alt="Window icon"
-//             width={16}
-//             height={16}
-//           />
-//           Examples
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="/globe.svg"
-//             alt="Globe icon"
-//             width={16}
-//             height={16}
-//           />
-//           Go to nextjs.org →
-//         </a>
-//       </footer>
-//     </div>
-//   );
-// }
+            {/* Brands section */}
+            <h1 className="home-title">Featuring the best brands</h1>
+            <ul className="brand-list">
+                {data.findAllBrands.map((brand: { id: string; name: string }) => (
+                    <li key={brand.id} className="brand-item">
+                        {brandLogos[brand.name] ? (
+                            <Link href={`/brands/${brand.id}`}>
+                                <img
+                                    src={brandLogos[brand.name]}
+                                    alt={brand.name}
+                                    className="brand-logo"
+                                    style={{ cursor: 'pointer' }}
+                                />
+                            </Link>
+                        ) : (
+                            <Link href={`/brands/${brand.id}`} className="brand-link">
+                                {brand.name}
+                            </Link>
+                        )}
+                    </li>
+                ))}
+            </ul>
+
+            {/* Features */}
+            <div className="features-section">
+                <div className="features-line"></div>
+                <div className="features-text-container">
+                    <div className="feature">SMOOTH BROWSING</div>
+                    <div className="feature">EASY DELIVERY</div>
+                    <div className="feature">SWIFT PAYMENT</div>
+                </div>
+            </div>
+
+            {/* Browse text */}
+            <div className="browse-section">
+                <div className="browse-text">
+                    Browse and buy your favourite guitar with VibeStrings
+                </div>
+            </div>
+
+            <Footer />
+        </div>
+    );
+    // return (
+    //     <div className="home-container">
+    //         <div className="top-bar">
+    //             <div className="vibestring">
+    //                 VibeString
+    //                 <span className="small-circle"></span>
+    //             </div>
+    //             <div className="big-circle"></div>
+    //         </div>
+    //
+    //         <section className="hero-section">
+    //             <h1 className="hero-title">Browse top quality Guitars online</h1>
+    //         </section>
+    //
+    //         <h1 className="home-title">Featuring the best brands</h1>
+    //
+    //         <ul className="brand-list">
+    //             {data.findAllBrands.map((brand: { id: string; name: string }) => (
+    //                 <li key={brand.id} className="brand-item">
+    //                     {brandLogos[brand.name] ? (
+    //                         <Link href={`/brands/${brand.id}`}>
+    //                             <img
+    //                                 src={brandLogos[brand.name]}
+    //                                 alt={brand.name}
+    //                                 className="brand-logo"
+    //                                 style={{ cursor: 'pointer' }}
+    //                             />
+    //                         </Link>
+    //                     ) : (
+    //                         <Link href={`/brands/${brand.id}`} className="brand-link">
+    //                             {brand.name}
+    //                         </Link>
+    //                     )}
+    //                 </li>
+    //             ))}
+    //         </ul>
+    //
+    //         <div className="features-section">
+    //             <div className="features-line"></div>
+    //             <div className="features-text-container">
+    //                 <div className="feature">SMOOTH BROWSING</div>
+    //                 <div className="feature">EASY DELIVERY</div>
+    //                 <div className="feature">SWIFT PAYMENT</div>
+    //             </div>
+    //         </div>
+    //
+    //         <div className="browse-section">
+    //             <div className="browse-text">
+    //                 Browse and buy your favourite guitar with VibeStrings
+    //             </div>
+    //             {/*<div className="browse-image">*/}
+    //             {/*    <img src="/path-to-your-image.jpg" alt="Guitar showcase" />*/}
+    //             {/*</div>*/}
+    //         </div>
+    //         <Footer/>
+    //     </div>
+    // );
+}

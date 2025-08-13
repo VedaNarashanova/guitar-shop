@@ -4,6 +4,11 @@ import { useParams } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import '../../styling/SecondPage.css';
+import '../../styling/header.css';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+
 
 const FIND_BRAND_MODELS = gql`
   query FindBrandModels($id: ID!, $sortBy: sortBy!) {
@@ -50,41 +55,28 @@ export default function BrandModelsPage() {
     const paginatedModels = filteredModels.slice(page * limit, (page + 1) * limit);
     const totalPages = Math.ceil(filteredModels.length / limit);
 
-    return (
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '20px' }}>
-            {/* Header */}
-            <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Check out this section</h1>
 
-            {/* Search & Filter */}
-            <div
-                style={{
-                    marginBottom: '30px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    flexWrap: 'wrap',
-                }}
-            >
+    return (
+
+        <div className="home-container">
+            <div>
+                <Link href="/" className="back-button">← Back to brands</Link>
+            </div><br/><br/>
+            {/* Header with dynamic title */}
+            <Header title="Browse top quality Guitars online" />
+
+            <div className="controls">
                 <input
                     type="text"
                     placeholder="Search models by name"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{
-                        padding: '10px',
-                        width: '220px',
-                        border: '1px solid #ccc',
-                        borderRadius: '5px',
-                    }}
+                    className="search-input"
                 />
                 <select
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
-                    style={{
-                        padding: '10px',
-                        border: '1px solid #ccc',
-                        borderRadius: '5px',
-                    }}
+                    className="select-input"
                 >
                     {guitarTypes.map((type) => (
                         <option key={type} value={type}>
@@ -95,69 +87,192 @@ export default function BrandModelsPage() {
             </div>
 
             {/* Guitar Grid */}
-            <div
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gridTemplateRows: 'repeat(2, auto)',
-                    gap: '20px',
-                }}
-            >
+            <div className="grid">
                 {paginatedModels.map((model) => (
-                    <div
-                        key={model.id}
-                        style={{
-                            border: '1px solid #ddd',
-                            borderRadius: '8px',
-                            padding: '10px',
-                            textAlign: 'center',
-                            background: '#fff',
-                        }}
-                    >
+                    <div key={model.id} className="card">
                         <Link href={`/models/${brandId}/${model.id}`}>
-                            <img
-                                src={model.image}
-                                alt={model.name}
-                                style={{
-                                    width: '100%',
-                                    height: '250px',
-                                    objectFit: 'contain',
-                                    marginBottom: '10px',
-                                }}
-                            />
-                            <h3 style={{ margin: '10px 0' }}>{model.name}</h3>
-                            <p
-                                style={{
-                                    fontWeight: 'bold',
-                                    color: '#444',
-                                }}
-                            >
-                                ${model.price}
-                            </p>
+                            <img src={model.image} alt={model.name} className="card-image" />
+                            <h3 className="card-title">{model.name}</h3>
+                            <p className="price">${model.price}</p>
                         </Link>
                     </div>
                 ))}
             </div>
 
             {/* Pagination */}
-            <div
-                style={{
-                    marginTop: '30px',
-                    display: 'flex',
-                    gap: '10px',
-                    justifyContent: 'center',
-                }}
-            >
-                <button onClick={() => setPage((prev) => Math.max(prev - 1, 0))} disabled={page === 0}>
+            <div className="pagination">
+                <button
+                    onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+                    disabled={page === 0}
+                >
                     Previous
                 </button>
                 <span>
           Page {page + 1} of {totalPages}
         </span>
-                <button onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))} disabled={page >= totalPages - 1}>
+                <button
+                    onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
+                    disabled={page >= totalPages - 1}
+                >
                     Next
                 </button>
             </div>
+
+            <Footer />
         </div>
     );
+
+
+
+
+    // return (
+    //     <div className="home-container"> {/* use same class as homepage */}
+    //
+    //
+    //
+    //         {/* Back button */}
+    //         <div style={{ marginBottom: '20px' }}>
+    //             <Link href="/" className="back-button">← Back to brands</Link>
+    //         </div>
+    //
+    //         {/* Header component */}
+    //         <Header title="Check out this section" />
+    //
+    //         {/* Search & Filter */}
+    //         <div className="controls">
+    //             <input
+    //                 type="text"
+    //                 placeholder="Search models by name"
+    //                 value={searchTerm}
+    //                 onChange={(e) => setSearchTerm(e.target.value)}
+    //                 className="search-input"
+    //             />
+    //             <select
+    //                 value={selectedType}
+    //                 onChange={(e) => setSelectedType(e.target.value)}
+    //                 className="select-input"
+    //             >
+    //                 {guitarTypes.map((type) => (
+    //                     <option key={type} value={type}>
+    //                         {type}
+    //                     </option>
+    //                 ))}
+    //             </select>
+    //         </div>
+    //
+    //         {/* Guitar Grid */}
+    //         <div className="grid">
+    //             {paginatedModels.map((model) => (
+    //                 <div key={model.id} className="card">
+    //                     <Link href={`/models/${brandId}/${model.id}`}>
+    //                         <img src={model.image} alt={model.name} className="card-image" />
+    //                         <h3 className="card-title">{model.name}</h3>
+    //                         <p className="price">${model.price}</p>
+    //                     </Link>
+    //                 </div>
+    //             ))}
+    //         </div>
+    //
+    //         {/* Pagination */}
+    //         <div className="pagination">
+    //             <button
+    //                 onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+    //                 disabled={page === 0}
+    //             >
+    //                 Previous
+    //             </button>
+    //             <span>
+    //       Page {page + 1} of {totalPages}
+    //     </span>
+    //             <button
+    //                 onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
+    //                 disabled={page >= totalPages - 1}
+    //             >
+    //                 Next
+    //             </button>
+    //         </div>
+    //
+    //         <Footer />
+    //     </div>
+    // );
+    // return (
+    //     <div className="container">
+    //         {/* Top bar */}
+    //         <div className="top-bar">
+    //             <button className="back-button" onClick={() => setPage(0)}>Back</button>
+    //
+    //             <div className="left-top">
+    //                 <div className="vibestring">
+    //                     VibeStrings
+    //                     <span className="small-orange-dot"></span>
+    //                 </div>
+    //                 <h1 className="play-pro">PLAY LIKE A PRO</h1>
+    //             </div>
+    //
+    //             <div className="big-orange-dot"></div>
+    //         </div>
+    //
+    //         {/* Main content */}
+    //         <div className="main-content">
+    //             <h1 className="header">Check out this section</h1>
+    //
+    //             {/* Search & Filter */}
+    //             <div className="controls">
+    //                 <input
+    //                     type="text"
+    //                     placeholder="Search models by name"
+    //                     value={searchTerm}
+    //                     onChange={(e) => setSearchTerm(e.target.value)}
+    //                     className="search-input"
+    //                 />
+    //                 <select
+    //                     value={selectedType}
+    //                     onChange={(e) => setSelectedType(e.target.value)}
+    //                     className="select-input"
+    //                 >
+    //                     {guitarTypes.map((type) => (
+    //                         <option key={type} value={type}>
+    //                             {type}
+    //                         </option>
+    //                     ))}
+    //                 </select>
+    //             </div>
+    //
+    //             {/* Guitar Grid */}
+    //             <div className="grid">
+    //                 {paginatedModels.map((model) => (
+    //                     <div key={model.id} className="card">
+    //                         <Link href={`/models/${brandId}/${model.id}`}>
+    //                             <img src={model.image} alt={model.name} className="card-image" />
+    //                             <h3 className="card-title">{model.name}</h3>
+    //                             <p className="price">${model.price}</p>
+    //                         </Link>
+    //                     </div>
+    //                 ))}
+    //             </div>
+    //
+    //             {/* Pagination */}
+    //             <div className="pagination">
+    //                 <button
+    //                     onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+    //                     disabled={page === 0}
+    //                 >
+    //                     Previous
+    //                 </button>
+    //                 <span>
+    //       Page {page + 1} of {totalPages}
+    //     </span>
+    //                 <button
+    //                     onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
+    //                     disabled={page >= totalPages - 1}
+    //                 >
+    //                     Next
+    //                 </button>
+    //             </div>
+    //         </div>
+    //
+    //         <Footer />
+    //     </div>
+    // );
+
 }
