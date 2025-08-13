@@ -33,6 +33,9 @@ export default function Footer() {
                     </ul>
                 </div>
             </div>
+            <div className="footer-copyright">
+                © 2022 Copyright. VibeStrings
+            </div>
         </footer>
     );
 }

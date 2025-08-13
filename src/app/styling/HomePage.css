@@ -1,66 +1,53 @@
-/* Container for the whole home page */
+
 .home-container {
     max-width: 900px;
     margin: 100px auto;
     padding: 0 20px;
     text-align: center;
-    position: relative; /* so that you can position elements inside */
-    min-height: 100vh; /* to ensure scrollable if content grows */
+    position: relative;
+    min-height: 100vh;
 }
 
-/* Top bar with left and right parts */
-.top-bar {
+.hero-section-container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-top: 40px;
+    position: relative;
+    padding: 70px 50px;
 }
-
-/* Left side: VibeString with orange circle */
-.vibestring {
-    font-size: 0.9rem;
-    font-weight: 500;
+.hero-text {
+    flex: 1;
+    font-weight: bold;
+}
+.hero-image img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+}
+.hero-image {
     display: flex;
+    gap: 15px;
+    z-index: 1; /* above the circle */
+}
+.hero-image-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
 }
 
-.vibestring .small-circle {
-    width: 12px;
-    height: 12px;
+.big-orange-circle {
+    position: absolute;
+    width: 350px;
+    height: 350px;
     background-color: orange;
     border-radius: 50%;
+    z-index: 0; /* behind images */
 }
 
-/* Right side: Big orange ball partially visible */
-/*.big-circle {*/
-/*    position: absolute;*/
-/*    top: -100px; !* move it up so part is hidden *!*/
-/*    right: -150px; !* move it right so part is off screen *!*/
-/*    width: 400px;  !* way bigger *!*/
-/*    height: 400px;*/
-/*    background-color: orange;*/
-/*    border-radius: 50%;*/
-/*    z-index: 0; !* behind content *!*/
-/*}*/
-
-/* Hero section with big text aligned roughly with the big circle */
-.hero-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 60px;
-}
-
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    max-width: 70%;
-    text-align: left;
-    line-height: 1.1;
-}
-
-/* Brands section and other styles stay as before */
 .home-title {
     font-size: 2.5rem;
     margin-bottom: 40px;
@@ -106,10 +93,10 @@
 
 .features-section {
     position: relative;
-    margin: 60px 0 100px; /* some spacing above and below */
+    /*margin: 60px 0 100px;*/
+    margin-top: 50px;
 }
 
-/* thick full-width black line */
 .features-line {
     height: 200px;
     background-color: black;
@@ -117,7 +104,6 @@
     border-radius: 6px;
 }
 
-/* container for 3 columns, centered and spaced */
 .features-text-container {
     position: absolute;
     top: 50%;
@@ -125,7 +111,7 @@
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: space-between;
-    width: 70%; /* controls how spread out the text is */
+    width: 70%;
     color: white;
     font-weight: 200;
     font-size: 0.9rem;
@@ -134,71 +120,24 @@
     user-select: none;
 }
 
-/* individual feature text */
 .feature {
     flex: 1;
     text-align: center;
 }
-.card a {
-    text-decoration: none; /* remove underline */
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.card-image {
-    width: 100%;          /* image fills the width of the card */
-    height: auto;         /* maintain aspect ratio */
-    object-fit: contain;  /* scale down to fit inside container */
-    max-height: 200px;    /* optional: limit image height */
-    display: block;
-    margin: 0 auto 10px auto;
-}
-.card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    max-width: 250px;      /* card width */
-    margin: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-@media (max-width: 600px) {
-    .card-image {
-        height: 120px; /* slightly smaller on mobile */
-    }
-}
-.browse-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 60px 0 40px 0; /* some vertical spacing */
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 20px;
-}
 
-.browse-text {
-    flex: 1;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #222;
-    max-width: 50%;
-}
 
-.browse-image {
-    flex: 1;
-    max-width: 45%;
-}
 
 .browse-image img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
+}
+.orange-text {
+    color: orange;
+}
+
+.div-header{
+    padding-bottom: 100px;
 }
 

@@ -42,7 +42,9 @@ export default function HomePage() {
     return (
         <div className="home-container">
             {/* Header with dynamic title */}
-            <Header title="Browse top quality Guitars online" />
+            <div className="div-header">
+                <Header title={<>Browse top quality <span className="orange-text">Guitars</span> online</>} />
+            </div>
 
             {/* Brands section */}
             <h1 className="home-title">Featuring the best brands</h1>
@@ -78,70 +80,23 @@ export default function HomePage() {
             </div>
 
             {/* Browse text */}
-            <div className="browse-section">
-                <div className="browse-text">
-                    Browse and buy your favourite guitar with VibeStrings
+            <div className="hero-section-container">
+                <div className="hero-text">
+                    <h1>Browse and buy your own guitar with VibeString</h1>
+                </div>
+
+                <div className="hero-image-wrapper">
+                    <div className="big-orange-circle"></div>
+                    <div className="hero-image">
+                        <img src="/images/guitar1.png" alt="Guitar1" />
+                        <img src="/images/guitar2.png" alt="Guitar2" />
+                    </div>
                 </div>
             </div>
+
 
             <Footer />
         </div>
     );
-    // return (
-    //     <div className="home-container">
-    //         <div className="top-bar">
-    //             <div className="vibestring">
-    //                 VibeString
-    //                 <span className="small-circle"></span>
-    //             </div>
-    //             <div className="big-circle"></div>
-    //         </div>
-    //
-    //         <section className="hero-section">
-    //             <h1 className="hero-title">Browse top quality Guitars online</h1>
-    //         </section>
-    //
-    //         <h1 className="home-title">Featuring the best brands</h1>
-    //
-    //         <ul className="brand-list">
-    //             {data.findAllBrands.map((brand: { id: string; name: string }) => (
-    //                 <li key={brand.id} className="brand-item">
-    //                     {brandLogos[brand.name] ? (
-    //                         <Link href={`/brands/${brand.id}`}>
-    //                             <img
-    //                                 src={brandLogos[brand.name]}
-    //                                 alt={brand.name}
-    //                                 className="brand-logo"
-    //                                 style={{ cursor: 'pointer' }}
-    //                             />
-    //                         </Link>
-    //                     ) : (
-    //                         <Link href={`/brands/${brand.id}`} className="brand-link">
-    //                             {brand.name}
-    //                         </Link>
-    //                     )}
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //
-    //         <div className="features-section">
-    //             <div className="features-line"></div>
-    //             <div className="features-text-container">
-    //                 <div className="feature">SMOOTH BROWSING</div>
-    //                 <div className="feature">EASY DELIVERY</div>
-    //                 <div className="feature">SWIFT PAYMENT</div>
-    //             </div>
-    //         </div>
-    //
-    //         <div className="browse-section">
-    //             <div className="browse-text">
-    //                 Browse and buy your favourite guitar with VibeStrings
-    //             </div>
-    //             {/*<div className="browse-image">*/}
-    //             {/*    <img src="/path-to-your-image.jpg" alt="Guitar showcase" />*/}
-    //             {/*</div>*/}
-    //         </div>
-    //         <Footer/>
-    //     </div>
-    // );
+
 }

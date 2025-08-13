@@ -1,8 +1,8 @@
 
 .home-container {
     max-width: 900px;
-    margin: 0 auto; /* remove top margin, we’ll add padding-top */
-    padding: 80px 20px 20px 20px; /* top padding to push content down */
+    margin: 0 auto;
+    padding: 80px 20px 20px 20px;
     text-align: center;
     position: relative;
     min-height: 100vh;
@@ -13,14 +13,22 @@
     margin-top: 2rem;
 }
 
-.left-column, .right-column {
+.left-column {
     flex: 1;
     background: #fff8f0;
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: left;
 }
-
+.right-column {
+    flex: 1;
+    background: #fff8f0;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
 .left-column ul, .right-column ul {
     list-style: none;
     padding-left: 0;
@@ -38,3 +46,38 @@
 .musician-pagination button.active-dot {
     background-color: blue;
 }
+
+
+.right-column ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.right-column li {
+    background-color: #fff8f0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    flex: 0 0 150px;
+}
+
+.right-column img {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 5px;
+}
+
+/*.page3-header img {*/
+/*    border-radius: 50%;*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    transform: rotate(-50deg);*/
+/*    transition: transform 0.3s;*/
+/*}*/

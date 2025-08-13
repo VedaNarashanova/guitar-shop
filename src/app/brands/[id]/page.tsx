@@ -77,12 +77,16 @@ export default function BrandModelsPage() {
                 <Link href="/" className="back-button">← Back to brands</Link>
             </div>
             {/* Header with dynamic title */}
-            <Header title="Play like a rockstar"
-                    logo={brandLogos[brandId]}
-            />
+            <div className="header2">
+                <Header title="Play like a rockstar"
+                        logo={brandLogos[brandId]}/>
+            </div>
+
 
             <div className="selection-section">
-                <h1>Check out the selection</h1>
+                <h1>
+                    Check out the <span className="orange-text">Selection</span>
+                </h1>
                 <div className="controls">
                     <input
                         type="text"
@@ -105,27 +109,6 @@ export default function BrandModelsPage() {
                 </div>
             </div>
 
-            {/*<div className="controls">*/}
-            {/*    <h1>Check out the selection</h1>*/}
-            {/*    <input*/}
-            {/*        type="text"*/}
-            {/*        placeholder="Search models by name"*/}
-            {/*        value={searchTerm}*/}
-            {/*        onChange={(e) => setSearchTerm(e.target.value)}*/}
-            {/*        className="search-input"*/}
-            {/*    />*/}
-            {/*    <select*/}
-            {/*        value={selectedType}*/}
-            {/*        onChange={(e) => setSelectedType(e.target.value)}*/}
-            {/*        className="select-input"*/}
-            {/*    >*/}
-            {/*        {guitarTypes.map((type) => (*/}
-            {/*            <option key={type} value={type}>*/}
-            {/*                {type}*/}
-            {/*            </option>*/}
-            {/*        ))}*/}
-            {/*    </select>*/}
-            {/*</div>*/}
 
             {/* Guitar Grid */}
             <div className="grid">
