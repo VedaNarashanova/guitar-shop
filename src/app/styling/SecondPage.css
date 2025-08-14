@@ -136,3 +136,11 @@
     background-color: #FFD8A6;
     color: #000;
 }
+
+.hero-section h4 {
+    max-width: 400px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: left;
+}

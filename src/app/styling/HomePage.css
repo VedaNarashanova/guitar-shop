@@ -20,6 +20,7 @@
 .hero-text {
     flex: 1;
     font-weight: bold;
+    font-size: 2rem;
 }
 .hero-image img {
     width: 150px;
@@ -43,14 +44,22 @@
     position: absolute;
     width: 350px;
     height: 350px;
-    background-color: orange;
     border-radius: 50%;
-    z-index: 0; /* behind images */
+    background-color: darkorange;
+    z-index: 0;
 }
 
 .home-title {
-    font-size: 2.5rem;
     margin-bottom: 40px;
+}
+
+.home-title h1{
+    font-size: 2.5rem;
+}
+
+.home-title h4{
+    color: #555;
+    font-size: 1rem;
 }
 
 .brand-list {
@@ -140,4 +149,21 @@
 .div-header{
     padding-bottom: 100px;
 }
+
+/*.div-header .big-circle {*/
+/*    width: 650px;       !* original circle size *!*/
+/*    height: 650px;*/
+/*    border-radius: 50%;*/
+/*    overflow: hidden;*/
+/*    position: relative;  !* ensures proper stacking *!*/
+/*}*/
+
+/*.div-header .big-circle img {*/
+/*    width: 100%;        !* fill the circle *!*/
+/*    height: 100%;*/
+/*    object-fit: cover;  !* cover the whole circle *!*/
+/*    border-radius: 50%; !* keep it circular *!*/
+/*    max-width: none;    !* override header.css restriction *!*/
+/*    max-height: none;   !* override header.css restriction *!*/
+/*}*/
 

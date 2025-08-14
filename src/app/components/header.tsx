@@ -3,7 +3,7 @@
 import React from 'react';
 import '../styling/header.css';
 
-export default function Header({ title,logo }) {
+export default function Header({ title,logo,somethign }) {
     return (
         <div className="header-container">
             <div className="top-bar">
@@ -19,7 +19,10 @@ export default function Header({ title,logo }) {
             </div>
 
             <section className="hero-section">
-                <h1 className="hero-title">{title}</h1>
+                <div>
+                    <h1 className="hero-title">{title}</h1>
+                    {somethign && <h4 className="hero-subtitle">{somethign}</h4>}
+                </div>
             </section>
         </div>
     );

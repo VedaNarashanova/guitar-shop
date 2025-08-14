@@ -53,14 +53,14 @@ export default function ModelDetailsPage() {
     const [lang, setLang] = useState("en");
     const t = translations[lang];
 
-    const musiciansPerPage = 1;
+    const musiciansPerPage = 1;//i put this so theres only one artist per seeing, i did it becuase many of the guitars had only 2 artist, and so i wanted to check if it works, so i kept it at 1
 
     if (loading) return <p>{t.loading}</p>;
     if (error) return <p>{t.error}l: {error.message}</p>;
 
     const model = data.findUniqueModel;
 
-    // Paginate musicians
+
     const musicians = model.musicians || [];
     const start = musicianPage * musiciansPerPage;
     const paginatedMusicians = musicians.slice(start, start + musiciansPerPage);
@@ -73,14 +73,14 @@ export default function ModelDetailsPage() {
         <div className="home-container">
             <Link href={`/brands/${brandId}`} className="back-button">← Back to models</Link>
 
-            {/* Header */}
+
             <Header className="page3-header"
                 title="Active Precision Bass® PH V"
                 logo={model.image} // Guitar image in circle
             />
 
 
-            {/* Tabs */}
+
             <div className="tabs-row" style={{ display: 'flex', justifyContent: 'space-between', margin: '2rem 0' }}>
                 <button onClick={() => setTab('specs')} disabled={tab === 'specs'}>
                     {t.specs}
@@ -145,7 +145,7 @@ export default function ModelDetailsPage() {
                 )}
             </div>
 
-            {/* Language switcher */}
+
             <div style={{ marginTop: "2rem" }}>
                 <button onClick={() => setLang("en")} disabled={lang === "en"}>English</button>
                 <span style={{ margin: "0 1rem" }}>|</span> {/* separator */}

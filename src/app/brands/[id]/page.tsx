@@ -76,12 +76,15 @@ export default function BrandModelsPage() {
             <div>
                 <Link href="/" className="back-button">← Back to brands</Link>
             </div>
-            {/* Header with dynamic title */}
-            <div className="header2">
-                <Header title="Play like a rockstar"
-                        logo={brandLogos[brandId]}/>
-            </div>
 
+            <div className="header2">
+                <Header
+                    title={<>Play like a <span className="orange-text">rockstar</span></>}
+                    logo={brandLogos[brandId]}
+                    somethign="With a legacy dating back to the 1950s, Ibanez blends expert craftsmanship with cutting-edge innovation to deliver guitars that inspire creativity and elevate your performance. Trusted by top artists worldwide, Ibanez guitars are built to play fast, sound bold, and stand out on any stage."
+
+                />
+            </div>
 
             <div className="selection-section">
                 <h1>

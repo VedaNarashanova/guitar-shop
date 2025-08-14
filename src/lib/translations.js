@@ -6,7 +6,7 @@ export const translations = {
         error: "Error loading model",
         noImage: "No image available",
         bands: "Bands",
-        // add more keys for all static text you use
+
     },
     mk: {
         specs: "Спецификации",

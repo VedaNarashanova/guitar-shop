@@ -6,6 +6,8 @@ import './styling/HomePage.css';
 import './styling/header.css';
 import Footer from './components/footer';
 import Header from './components/header';
+import homeImage from '/public/images/homeimage.jpg';
+
 
 
 const brandLogos = {
@@ -41,14 +43,20 @@ export default function HomePage() {
 
     return (
         <div className="home-container">
-            {/* Header with dynamic title */}
             <div className="div-header">
-                <Header title={<>Browse top quality <span className="orange-text">Guitars</span> online</>} />
+                <Header
+                    title={<>Browse top quality <span className="orange-text">Guitars</span> online</>}
+                    somethign="Explore 50k+ latest collections of branded guitars online with VibeStrings."
+                //    logo="/images/homeimage.jpg"
+                />
             </div>
 
             {/* Brands section */}
-            <h1 className="home-title">Featuring the best brands</h1>
-            <ul className="brand-list">
+            <div  className="home-title">
+                <h1>Featuring the best brands</h1>
+                <h4>Select your preferred brand and explore our exquisite collection.</h4>
+            </div>
+             <ul className="brand-list">
                 {data.findAllBrands.map((brand: { id: string; name: string }) => (
                     <li key={brand.id} className="brand-item">
                         {brandLogos[brand.name] ? (
@@ -69,7 +77,7 @@ export default function HomePage() {
                 ))}
             </ul>
 
-            {/* Features */}
+
             <div className="features-section">
                 <div className="features-line"></div>
                 <div className="features-text-container">
@@ -79,7 +87,7 @@ export default function HomePage() {
                 </div>
             </div>
 
-            {/* Browse text */}
+
             <div className="hero-section-container">
                 <div className="hero-text">
                     <h1>Browse and buy your own guitar with VibeString</h1>

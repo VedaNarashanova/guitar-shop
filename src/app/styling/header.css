@@ -53,6 +53,13 @@
     align-items: center;
     margin-top: 40px;
 }
+.hero-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 12px;
+    color: #555; /* optional softer tone */
+    text-align: left;
+}
 
 .hero-title {
     font-size: 3rem;
